@@ -84,7 +84,21 @@ func main() {
 			if !isValidTicketNumber {
 				fmt.Println("Number of tickets you entered is invalid")
 			}
+
 			//continue
+			//			city := "London"
+			//			switch city {
+			//			case "New York":
+			//			//execute code
+			//			case "Singapore","Hong Kong":
+			//			//execute
+			//			case "London","Berlin":
+			//execute
+			//			case "Mexico City":
+			//execute
+			//			default:
+			//				fmt.Print("No Valid city selected")
+			//			}
 		}
 
 	}
