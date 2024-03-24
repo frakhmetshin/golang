@@ -3,14 +3,22 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strconv"
 )
 
 const conferenceTickets int = 50
 
 var conferenceName = "Go Conference" //var conferenceName string = "Go Conference"
 var remainingTickets uint = 50
-var bookings = make([]map[string]string, 0)
+
+// var bookings = make([]map[string]string, 0)
+var bookings = make([]UserData, 0)
+
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 
@@ -79,7 +87,7 @@ func getFirstNames() []string {
 	for _, booking := range bookings {
 		//var names = strings.Fields(booking)
 		//var firstName = names[0]
-		firstNames = append(firstNames, booking["firstName"])
+		firstNames = append(firstNames, booking.firstName)
 	}
 	//fmt.Printf("These are all our bookings: %v\n", bookings)
 	//fmt.Printf("These are all first names of our bookings: %v\n", firstNames)
@@ -115,11 +123,16 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 	//bookings[0] = firstName + " " + lastName //for array
 
 	// create map for a user
-	var userData = make(map[string]string)
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["numbrtOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
+	//	userData["firstName"] = firstName
+	//	userData["lastName"] = lastName
+	//	userData["email"] = email
+	//	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
 
 	bookings = append(bookings, userData)
 
