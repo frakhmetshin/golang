@@ -3,14 +3,14 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 const conferenceTickets int = 50
 
 var conferenceName = "Go Conference" //var conferenceName string = "Go Conference"
 var remainingTickets uint = 50
-var bookings = []string{}
+var bookings = make([]map[string]string, 0)
 
 func main() {
 
@@ -29,6 +29,7 @@ func main() {
 		if isValidName && isValidEmail && isValidTicketNumber {
 			bookTicket(userTickets, firstName, lastName, email)
 			fmt.Printf("These are all first names of our bookings: %v\n", getFirstNames())
+			fmt.Printf("list of booking is %v \n", bookings)
 			//noTicketsRemaining := remainingTickets == 0
 			if remainingTickets == 0 {
 				//end program
@@ -60,6 +61,7 @@ func main() {
 			//			default:
 			//				fmt.Print("No Valid city selected")
 			//			}
+
 		}
 
 	}
@@ -75,9 +77,9 @@ func greetUsers() {
 func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
-		var names = strings.Fields(booking)
+		//var names = strings.Fields(booking)
 		//var firstName = names[0]
-		firstNames = append(firstNames, names[0])
+		firstNames = append(firstNames, booking["firstName"])
 	}
 	//fmt.Printf("These are all our bookings: %v\n", bookings)
 	//fmt.Printf("These are all first names of our bookings: %v\n", firstNames)
@@ -111,7 +113,15 @@ func getUserInput() (string, string, string, uint) {
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
 	//bookings[0] = firstName + " " + lastName //for array
-	bookings = append(bookings, firstName+" "+lastName)
+
+	// create map for a user
+	var userData = make(map[string]string)
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["numbrtOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+
+	bookings = append(bookings, userData)
 
 	//fmt.Printf("The whole slice: %v \n", bookings)
 	//fmt.Printf("The first value: %v\n", bookings[0])
